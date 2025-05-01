@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Login</title> 
+    <link rel="stylesheet" href="styles/login.css"> 
+    <link rel="icon" href="images/DatamexLogo.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <base href="img">
+</head>
+
+<body>
+    <div id="cautionMessage" class="caution-message">
+        <i class='bx bx-x-circle'></i>
+        <span>Put the necessary credentials to proceed</span>
+    </div>
+    
+    <div class="container">
+        <div class="wrapper" id="loginForm">
+            <div class="logo-container">
+                <img src="images/DatamexLogo.png" alt="School Logo">
+            </div>
+
+            <form action="">    
+                <h1>Login</h1> 
+
+                <div class="input-box">
+                    <input type="text" placeholder="Username" maxlength="20" id="username">
+                    <i class='bx bxs-user'></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" placeholder="password" maxlength="20" id="password">
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+
+                
+
+                <button type="submit" class="btn" id="submit">Login</button>
+            </form> 
+        </div> 
+
+       
+    </div>
+
+    <script src="JS/login.js"></script>
+</body> 
+</html>

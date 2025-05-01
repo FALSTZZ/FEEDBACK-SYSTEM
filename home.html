@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback System - Home</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="icon" href="images/DatamexLogo.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo-container">
+                <img src="images/DatamexLogo.png" alt="School Logo">
+            </div>
+            <ul class="nav-links">
+                <li class="active">
+                    <i class='bx bxs-home'></i>
+                    <span>Home</span>
+                </li>
+                <li>
+                    <i class='bx bx-log-out'></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header>
+                <h1>Welcome to Student Feedback System</h1>
+                <p class="user-name">Hello, Student</p>
+            </header>
+
+            <div class="cards-container">
+                <div class="card" id="newFeedback">
+                    <i class='bx bxs-message-square-add'></i>
+                    <h2>Submit Feedback</h2>
+                    <p>Share your thoughts and suggestions</p>
+                </div>
+
+                <div class="card" id="viewFeedback">
+                    <i class='bx bxs-message-square-detail'></i>
+                    <h2>View Feedback</h2>
+                    <p>Check your submitted feedback</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="JS/home.js"></script>
+</body>
+</html>

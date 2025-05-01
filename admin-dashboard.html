@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles/admin-dashboard.css">
+    <link rel="icon" href="images/DatamexLogo.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo-container">
+                <img src="images/DatamexLogo.png" alt="School Logo">
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-tab="dashboard">
+                    <i class='bx bxs-dashboard'></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-tab="feedbacks">
+                    <i class='bx bxs-message-square-detail'></i>
+                    <span>Feedbacks</span>
+                </li>
+                <li data-tab="students">
+                    <i class='bx bxs-user-account'></i>
+                    <span>Students</span>
+                </li>
+                
+                <li>
+                    <i class='bx bx-log-out'></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <header>
+                    <h1>Admin Dashboard</h1>
+                    <p class="user-name">Hello, Admin</p>
+                </header>
+
+                <div class="semester-transition">
+                    <button class="btn proceed-btn" id="proceedSemesterBtn">
+                        <i class='bx bx-right-arrow-alt'></i>
+                        Proceed To Next Semester
+                    </button>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class='bx bxs-user'></i>
+                        <div class="stat-info">
+                            <h3>Total Students</h3>
+                            <p id="totalStudents">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class='bx bxs-message-square-detail'></i>
+                        <div class="stat-info">
+                            <h3>Total Feedbacks</h3>
+                            <p id="totalFeedbacks">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class='bx bxs-message-square-check'></i>
+                        <div class="stat-info">
+                            <h3>Resolved Feedbacks</h3>
+                            <p id="resolvedFeedbacks">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class='bx bxs-message-square-x'></i>
+                        <div class="stat-info">
+                            <h3>Pending Feedbacks</h3>
+                            <p id="pendingFeedbacks">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="storage-info">
+                    <h3>System Usage</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="storageProgressBar"></div>
+                    </div>
+                    <p id="storageDetails">0 KB used (0%)</p>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <button id="clearActivityBtn" class="btn secondary">
+                        <i class='bx bx-trash'></i>
+                        Clear All
+                    </button>
+                    <br>
+                    <br>
+                    <div class="activity-list" id="recentActivity">
+                        <!-- Activity items will be added here dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feedbacks Tab -->
+            <section id="feedbacks" class="tab-content">
+                <header>
+                    <h1>Student Feedbacks</h1>
+                    <p class="subtitle">Manage and respond to student feedbacks</p>
+                </header>
+
+                <div class="filter-container">
+                    <div class="search-box">
+                        <i class='bx bx-search'></i>
+                        <input type="text" placeholder="Search Username..." id="feedbackSearchInput">
+                    </div>
+                    <div class="filter-box">
+                        <label for="feedbackFilterType">Filter by:</label>
+                        <select id="feedbackFilterType">
+                            <option value="all">All Types</option>
+                            <option value="suggestion">Suggestion</option>
+                            <option value="complaint">Complaint</option>
+                            <option value="appreciation">Appreciation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="filter-box">
+                        <label for="feedbackFilterStatus">Status:</label>
+                        <select id="feedbackFilterStatus">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="acknowledged">Acknowledged</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="feedback-list" id="adminFeedbackList">
+                    <!-- Feedback items will be added here dynamically -->
+                </div>
+
+                <div class="no-results" id="noFeedbacksMessage" style="display: none;">
+                    <i class='bx bx-search-alt'></i>
+                    <p>No feedback found matching your search criteria</p>
+                </div>
+            </section>
+
+            <!-- Students Tab -->
+            <section id="students" class="tab-content">
+                <header>
+                    <h1>Manage Students</h1>
+                    <p class="subtitle">Create and manage student accounts</p>
+                </header>
+
+                <div class="action-bar">
+                    <div class="search-box">
+                        <i class='bx bx-search'></i>
+                        <input type="text" placeholder="Search Students Username..." id="studentSearchInput">
+                    </div>
+                    <button class="btn primary" id="addStudentBtn">
+                        <i class='bx bx-plus'></i> Add Student
+                    </button>
+                </div>
+
+                <div class="students-table-container">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Feedbacks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Student rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="no-results" id="noStudentsMessage" style="display: none;">
+                    <i class='bx bx-user-x'></i>
+                    <p>No students found matching your search criteria</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal" id="addStudentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Student</h2>
+                <button class="close-btn"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="addStudentForm">
+                    <div class="form-group">
+                        <label for="newUsername">Username</label>
+                        <input type="text" id="newUsername" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newEmail">Email</label>
+                        <input type="email" id="newEmail" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancelAddStudentBtn">Cancel</button>
+                        <button type="submit" class="btn primary">Add Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Response Modal -->
+    <div class="modal" id="feedbackResponseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Respond to Feedback</h2>
+                <button class="close-btn"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="feedback-details">
+                    <div class="detail-row">
+                        <span class="detail-label">From:</span>
+                        <span class="detail-value" id="responseModalUsername"></span>
+                    </div>
+                    <br>
+                    <div class="detail-row">
+                        <span class="detail-label">Subject:</span>
+                        <span class="detail-value" id="responseModalSubject"></span>
+                    </div>
+                    <br>
+                    <div class="detail-row">
+                        <span class="detail-label">Type:</span>
+                        <span class="detail-value" id="responseModalType"></span>
+                    </div>
+                    <br>
+                    <div class="detail-row full">
+                        <span class="detail-label">Message:</span>
+                        <div class="detail-message" id="responseModalMessage"></div>
+                    </div>
+                    <br>
+                    <div class="attachment-row" style="display: none;">
+                        <span class="label">Attachment:</span>&nbsp;&nbsp;&nbsp;
+                        <a href="#" class="attachment-link"></a>
+                    </div>
+                    <br>
+                </div>
+
+                <form id="feedbackResponseForm">
+                    <div class="form-group">
+                        <label for="feedbackStatus">Update Status</label>
+                        <select id="feedbackStatus" required>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="acknowledged">Acknowledged</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="responseMessage">Response Message</label>
+                        <textarea id="responseMessage" maxlength="150" rows="5" placeholder="Enter your response..."
+                            required></textarea>
+                    </div>
+                    <input type="hidden" id="feedbackId">
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancelResponseBtn">Cancel</button>
+                        <button type="submit" class="btn primary">Send Response</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal on students tab -->
+    <div class="modal" id="resetPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reset Student Password</h2>
+                <button class="close-btn"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="resetPasswordForm">
+                    <div class="form-group">
+                        <label for="resetUsername">Username</label>
+                        <input type="text" id="resetUsername" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="resetEmail">Email</label>
+                        <input type="email" id="resetEmail" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="newResetPassword">New Password</label>
+                        <input type="password" id="newResetPassword" placeholder="Enter new password" required>
+                    </div>
+                    <input type="hidden" id="resetRequestId">
+                    <div class="form-actions" id="AddNewStudentbtns">
+                        <button type="button" class="btn secondary" id="cancelResetBtn">Cancel</button>
+                        <button type="submit" class="btn primary">Reset Password</button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="message-popup">
+        <i class='bx bx-check-circle'></i>
+        <span id="successMessageText">Operation completed successfully!</span>
+        <div class="storage-info-small" id="storageInfoSmall"></div>
+    </div>
+
+    <!-- First Confirmation Modal -->
+    <div class="modal" id="semesterConfirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Proceed to Next Semester</h2>
+                <button class="close-btn"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to proceed to next Semester?</p>
+                <div class="form-actions">
+                    <button class="btn secondary" id="firstNo">No</button>
+                    <button class="btn primary" id="firstYes">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Second Confirmation Modal -->
+    <div class="modal" id="finalConfirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Warning!</h2>
+                <button class="close-btn"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <p>This action cannot be undone after proceeding. Are you sure you want to proceed?</p>
+                <div class="form-actions">
+                    <button class="btn secondary" id="secondNo">No</button>
+                    <button class="btn primary" id="secondYes">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/admin-dashboard.js"></script>
+</body>
+
+</html>
